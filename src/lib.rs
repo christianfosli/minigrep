@@ -13,9 +13,10 @@ impl Config {
         if args.len() < 3 {
             return Err("not enough arguments");
         }
-        let query = args[1].clone();
-        let filename = args[2].clone();
-        let case_sensitive = env::var("CASE_INSENSITIVE").is_err();
+        let query = args[args.len() - 2].clone();
+        let filename = args[args.len() - 1].clone();
+        let case_sensitive =
+            env::var("CASE_INSENSITIVE").is_err() && !args.contains(&String::from("-i"));
         Ok(Config {
             query,
             filename,
